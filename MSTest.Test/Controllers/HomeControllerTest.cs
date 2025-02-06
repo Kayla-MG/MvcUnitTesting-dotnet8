@@ -47,7 +47,25 @@ namespace MvcUnitTesting.Tests.Controllers
             // Assert
             Assert.AreEqual("Your Privacy is our concern", result.ViewData["Message"]);
         }
+        [TestMethod]
+        public void show_ViewData_genre_test()
+        {
+            // Arrange: Create a mock repository
+            var bookRepository = Mock.Create<IRepository<Book>>();
 
-       
+            // Create HomeController with the mock repository
+            HomeController controller = new HomeController(bookRepository, null);
+
+            // Act: Call Index with "Sci-Fi" as the genre
+            var result = controller.Index("Sci-Fi") as ViewResult;
+
+            // Assert: Check if ViewData["Genre"] is correctly set
+            Assert.IsNotNull(result.ViewData["Genre"]);
+            Assert.AreEqual("Sci-Fi", result.ViewData["Genre"]);
+        }
+
+
+
+
     }
 }
